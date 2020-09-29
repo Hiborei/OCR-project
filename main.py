@@ -63,7 +63,7 @@ def image_loader_vec(start, how_many):
         for x in range(start, start+how_many):
             num = str(x)
             num = num.zfill(4)
-            img = cv2.imread('E:/class/'+s + '/hsf_0/hsf_0_0'+num+'.png')
+            img = cv2.imread('E:/classcopy/'+s + '/hsf_0/hsf_0_0'+num+'.png')
             img = trim(img)
             ret, processed = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
             processed = cv2.cvtColor(processed, cv2.COLOR_RGB2GRAY)
@@ -137,11 +137,11 @@ def ComNB(data_train_X, data_train_Y):
 
 
 
-    for r in range(0,len(symbols)):
-        k = '0'
-        while not k == ord('n'):
-             cv2.imshow(str(results[r]), cv2.resize(for_show[r].reshape((16, 16)),(200,200)))
-             k = cv2.waitKey()
+    # for r in range(0,len(symbols)):
+    #     k = '0'
+    #     while not k == ord('n'):
+    #          cv2.imshow(str(results[r]), cv2.resize(for_show[r].reshape((16, 16)),(200,200)))
+    #          k = cv2.waitKey()
 
 
 
@@ -175,11 +175,11 @@ def SupportVector(data_train_X, data_train_Y):
 
     results = svc.predict(test_x)
 
-    for r in range(0, len(symbols)):
-        k = '0'
-        while not k == ord('n'):
-            cv2.imshow(str(results[r]), cv2.resize(test_x[r].reshape((16, 16)), (200, 200)))
-            k = cv2.waitKey()
+    # for r in range(0, len(symbols)):
+    #     k = '0'
+    #     while not k == ord('n'):
+    #         cv2.imshow(str(results[r]), cv2.resize(test_x[r].reshape((16, 16)), (200, 200)))
+    #         k = cv2.waitKey()
 
 
 def Trees(data_x, data_y):
@@ -205,16 +205,17 @@ def neural(data_x, data_y):
     regr = regr.fit(data_x, data_y)
 
     test_x = image_loader_vec(200, 10)
-    test_y = labeling_num(10)
+    test_y = labeling(10)
     results = regr.predict(test_x)
     score = accuracy_score(test_y, results)
     print(score)
 
 data_x = image_loader_vec(0,200)
-data_y = labeling_num(200)
-# ComNB(data_x, data_y)
-# MNB(data_x, data_y)
-# SupportVector(data_x, data_y)
-# Trees(data_x, data_y)
+data_y = labeling(200)
+data_y_num = labeling(200)
+ComNB(data_x, data_y)
+MNB(data_x, data_y)
+SupportVector(data_x, data_y)
+Trees(data_x, data_y)
 neural(data_x, data_y)
 
